@@ -82,6 +82,7 @@ with tf.Session() as sess:
             feeds = {x: x_data[xy_index], y: y_data[xy_index]}
             # 进行模型训练
             sess.run(train, feed_dict=feeds)
+
             # 可选：获取损失函数值
             avg_cost += sess.run(cost, feed_dict=feeds) / num_batch
 

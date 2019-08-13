@@ -51,8 +51,6 @@
 
 
 
-
-
 # -- encoding:utf-8 --
 import tensorflow as tf
 import numpy as np
@@ -61,8 +59,8 @@ import matplotlib.pyplot as plt
 # 1.构造数据
 np.random.seed(28)
 N = 100
-x_data = np.linspace(0, 6, N) + np.random.normal(0.0,2.0,N)  # 当范围最大值为6时顺利，若为7 8 9可能有误，不知为何
-y_data = 7 * x_data + 2 + np.random.normal(0.0,5,N)
+x_data = np.linspace(0, 6, N) + np.random.normal(0,2,N)  # 当范围最大值为6时顺利，若为7 8 9可能有误，不知为何
+y_data = 7 * x_data + 2 + np.random.normal(0,5,N)
 
 # 画图显示拟合结果
 # plt.figure()
@@ -84,7 +82,7 @@ w = tf.Variable(initial_value=tf.zeros([1]),name='w')
 b = tf.Variable(initial_value=tf.zeros([1]),name='b')
 # print('type:', type(b),'shape:', b.shape,'value:', b)
 # 构建预测值
-y_hat = w * x_data + b
+y_hat = w * x + b
 
 # 4. 模型优化
 # 构建一个损失函数:以MSE作为损失函数（预测值和实际值之间的平方和）
@@ -108,9 +106,10 @@ with tf.Session() as sess:
         prediction_value = sess.run(y_hat, feed_dict={x: x_data})
         # 每5轮打印一次w值
         if step % 5 == 0:
-            print('After {} training steps,w is:{}\n'.format(step,w))
+            print('After {} training steps,w is:{}\n'.format(step,sess.run(w)))
     # 打印最终权值
-    print('Final w is:', sess.run(w))
+    print('Final w is:{}'.format(sess.run(w)))
+    # print('Final w is:', sess.run(w))
 
     # 6.画图
     plt.figure()
